@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\AuthService;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
@@ -12,10 +13,12 @@ class AuthController extends Controller
     }
 
     public function loginSubmit(Request $request) { 
-        $identify = filter_var($request['email'], FILTER_VALIDATE_EMAIL);
+        
+        filter_var($request['email'], FILTER_VALIDATE_EMAIL);
+
         $request->validate(
             [
-                "email" => ['required', 'email:rfc', $identify],
+                "email" => ['required', 'email:rfc'],
                 "pass" => ['required', 'min:6', 'max:16']
             ],
             [
@@ -27,6 +30,25 @@ class AuthController extends Controller
             ]
         );
 
-        echo "a";
+        $result = AuthService::loginSubmit($request);
+
+        if($result['status']) {
+            session([
+                'user' => [
+                    'user.id' => $result['data']->id,
+                    'user.username' => $result['data']->username,
+                    'user.created' => $result['data']->created_at,
+                    'user.updated' => $result['data']->updated_at,
+                ]
+            ]);
+
+            return redirect()->route('login');
+        }
+
+        
+        return redirect()
+            ->back()
+            ->withInput()
+            ->with('loginError', $result['msg']);
     }
 }
