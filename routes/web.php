@@ -4,9 +4,10 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
-//AUTH
+//NonLogged
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/authLogin', [AuthController::class, 'loginSubmit'])->name('authLogin');
 
-//MAIN
+//Logged
 Route::get('/', [MainController::class, 'home'])->name('home');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
