@@ -12,6 +12,11 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function logout(){
+        session()->forget('user');
+        return redirect()->route('login');
+    }
+
     public function loginSubmit(Request $request) { 
         
         filter_var($request['email'], FILTER_VALIDATE_EMAIL);
