@@ -12,6 +12,11 @@ class AuthController extends Controller
         return view('login');
     }
 
+    public function logout(){
+        session()->forget('user');
+        return redirect()->route('login');
+    }
+
     public function loginSubmit(Request $request) { 
         
         filter_var($request['email'], FILTER_VALIDATE_EMAIL);
@@ -35,14 +40,14 @@ class AuthController extends Controller
         if($result['status']) {
             session([
                 'user' => [
-                    'user.id' => $result['data']->id,
-                    'user.username' => $result['data']->username,
-                    'user.created' => $result['data']->created_at,
-                    'user.updated' => $result['data']->updated_at,
+                    'id' => $result['data']->id,
+                    'username' => $result['data']->username,
+                    'created' => $result['data']->created_at,
+                    'updated' => $result['data']->updated_at,
                 ]
             ]);
 
-            return redirect()->route('login');
+            return redirect()->route('home');
         }
 
         
