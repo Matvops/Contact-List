@@ -6,7 +6,7 @@
     <title>PROJECT</title>
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
 </head>
-<body class="bg-gray-900 min-h-screen flex justify-center items-center flex-col gap-4">
+<body class="relative bg-gray-900 min-h-screen flex justify-center items-center flex-col gap-4 max-w-700 mx-auto">
     
     @yield('content')
 
