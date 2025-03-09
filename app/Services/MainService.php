@@ -45,4 +45,9 @@ class MainService {
             ];
         }
     }
+
+    public static function deleteContact($id){
+        $user = User::find(Crypt::decrypt($id));
+        $user->delete();
+    }
 }

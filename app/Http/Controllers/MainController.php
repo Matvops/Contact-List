@@ -48,4 +48,11 @@ class MainController extends Controller
             ->withInput()
             ->with('updateError', $result['msg']);
     }
+
+    public function delete($id)
+    {
+        MainService::deleteContact($id);
+
+        return redirect()->route('home');
+    }
 }
