@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\SignInController;
 use Illuminate\Support\Facades\Route;
 
 //NonLogged
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/authLogin', [AuthController::class, 'loginSubmit'])->name('authLogin');
+Route::get('/createAccount', [SignInController::class, 'SignIn'])->name('sign');
+Route::post('/createAccountSubmit', [SignInController::class, 'SignInSubmit'])->name('signSubmit');
 
 //Logged
 Route::get('/', [MainController::class, 'home'])->name('home');
