@@ -22,4 +22,5 @@ Route::middleware(UserIsLogged::class)->group(function () {
     Route::get('/updateContact/{id}', [MainController::class, 'update'])->name('update');
     Route::post('/updateContactSubmit', [MainController::class, 'updateSubmit'])->name('updateSubmit');
     Route::delete('/deleteContact/{id}', [MainController::class, 'delete'])->name('delete');
+    Route::get('/account', [MainController::class, 'account'])->name('account');
 });
