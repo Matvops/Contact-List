@@ -26,8 +26,10 @@ class MainService {
             $user->username = $request['username'];
             $user->email = $request['email'];
 
-            $user = $user->save();
+            $user->save();
             
+            $user = User::find(Crypt::decrypt($request['id']));
+
             if($user) {
                 return [
                     'status' => true,
@@ -49,5 +51,9 @@ class MainService {
     public static function deleteContact($id){
         $user = User::find(Crypt::decrypt($id));
         $user->delete();
+    }
+
+    public static function getAccount($id) {
+        return User::find($id);
     }
 }

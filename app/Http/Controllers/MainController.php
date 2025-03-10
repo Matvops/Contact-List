@@ -38,7 +38,10 @@ class MainController extends Controller
         );
 
         $result = MainService::updateContact($request);
+        error_log(json_encode($result['data']));
 
+        session()->put('user.username', $result['data']['username']);
+        
         if($result['status']) {
             return redirect()->route('home');
         }
@@ -54,5 +57,11 @@ class MainController extends Controller
         MainService::deleteContact($id);
 
         return redirect()->route('home');
+    }
+
+    public function account() {
+        $contact = MainService::getAccount(session('user.id'));
+
+        return view('account', ['contact' => $contact]);
     }
 }
